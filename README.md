@@ -24,6 +24,10 @@ Or install it yourself as:
 
     $ gem install simple_graph
 
+## Documentation
+
+Docs are built using YARD and are available at https://vesther.github.io/simple_graph/
+
 ## Usage
 
 ### Quickstart
