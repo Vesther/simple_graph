@@ -80,14 +80,12 @@ module SimpleGraph
       nodes = lines[0..separator_position - 1]
       edges = lines[separator_position + 1..-1].map(&:split)
 
-      lookup_hash = {}
-
       nodes.each do |node|
-        lookup_hash[node] = add_node(data: { name: node })
+        add_node(id: node)
       end
 
       edges.each do |edge|
-        connect_nodes(lookup_hash[edge.first], lookup_hash[edge.last])
+        connect_nodes(edge.first, edge.last)
       end
     end
 
