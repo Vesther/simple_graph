@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Kevin Nowald"]
   spec.email         = ["nicokevi2210@yahoo.de"]
 
-  spec.summary       = "A simple graph library for Ruby for undirected, unweighted graphs."
+  spec.summary       = "A simple graph library for Ruby supporting undirected, unweighted graphs."
   # spec.description   = "TODO: Write a longer description or delete this line."
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
