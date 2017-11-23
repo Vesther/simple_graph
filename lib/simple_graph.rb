@@ -28,7 +28,7 @@ module SimpleGraph
       @last_id = 0
     end
 
-    # Method to add a new node to the graph
+    # Add a new node to the graph
     def add_node(id: nil, data: {})
       id ||= next_id
       node = Graph::Node.new(id: id, data: data)
@@ -37,7 +37,7 @@ module SimpleGraph
       node
     end
 
-    # Method to delete a node from the graph
+    # Delete a node from the graph
     def delete_node(node)
       # Remove all edges connected with this node
       node.neighbors.each do |neighbor|
@@ -47,7 +47,12 @@ module SimpleGraph
       @nodes.delete(node)
     end
 
-    # Returns a array of node ids in the graph
+    # Retrieve the amount of nodes in the graph
+    def node_count
+      @nodes.length
+    end
+
+    # Retrieve a array of node ids in the graph
     def node_ids
       # The .to_a call is used to return a copy of the array so it cannot be modified from the outside.
       @nodes_by_id.keys.to_a
@@ -59,7 +64,7 @@ module SimpleGraph
       @nodes_by_id[second].add_neighbor(@nodes_by_id[first])
     end
 
-    # Returns the current graph in the DOT format to be used with Graphviz
+    # Retrieve the current graph in the DOT format to be used with Graphviz
     def to_dot_string
       str = "strict graph {\n"
 
