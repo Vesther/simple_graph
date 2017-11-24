@@ -99,7 +99,17 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>A internal class representing a single vertex/node inside a graph</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -220,7 +230,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Adds a neighbor to the given node.</p>
+</div></span>
   
 </li>
 
@@ -281,14 +292,14 @@
       <pre class="lines">
 
 
-6
-7
-8
-9
-10</pre>
+10
+11
+12
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/simple_graph.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/simple_graph.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>id:</span><span class='comma'>,</span> <span class='label'>data:</span><span class='rparen'>)</span>
   <span class='ivar'>@data</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span>
@@ -332,12 +343,12 @@
       <pre class="lines">
 
 
-17
-18
-19</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/simple_graph.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/simple_graph.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_data'>data</span>
   <span class='ivar'>@data</span>
@@ -374,12 +385,12 @@
       <pre class="lines">
 
 
-18
-19
-20</pre>
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/simple_graph.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/simple_graph.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span>
   <span class='ivar'>@id</span>
@@ -416,12 +427,12 @@
       <pre class="lines">
 
 
-16
-17
-18</pre>
+21
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/simple_graph.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/simple_graph.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_neighbors'>neighbors</span>
   <span class='ivar'>@neighbors</span>
@@ -447,18 +458,28 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Adds a neighbor to the given node</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-12
-13
-14</pre>
+17
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/simple_graph.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/simple_graph.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_neighbor'>add_neighbor</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
   <span class='ivar'>@neighbors</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_node'>node</span>
@@ -473,7 +494,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Nov 23 18:04:53 2017 by
+  Generated on Fri Nov 24 04:49:18 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.1).
 </div>

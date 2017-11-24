@@ -54,16 +54,24 @@ bar = graph.add_node(id: "Igor", data: stuff)
 graph.connect_nodes(foo, "Kevin")
 
 # Paths between two nodes can be found by breadth-first search
-# This method will return a array of arrays containing node IDs describing the path
 paths = graph.find_paths(foo, bar)
 
 # Retrieving info about the graph
+graph.nodes # Lists all of the nodes in the graph
 graph.node_count # Returns the amount of nodes in the graph
 graph.node_ids # Array of node identifiers in the graph
+graph.are_connected?(foo, bar) # Checks whether two nodes are connected by an Edge
+graph.include?("Kevin") # Checks whether the graph includes a node with the given ID
 
 # Graphs can be written to files in the DOT format to be used with Graphviz
 # Note that the node ID will be used for labels
 File.write("test.dot", graph.to_dot_string)
+
+# Export a graph to a JSON file
+File.write("output.json", graph.to_json)
+
+# Import a graph from a JSON file
+graph.load_from_json(File.read("input.json"))
 ```
 
 ## Contributing

@@ -1,7 +1,11 @@
 require "simple_graph/version"
+require "JSON"
 
+# Top level namespace for classes provided by this gem
 module SimpleGraph
+  # A class representing a unweighted, undirected graph
   class Graph
+    # A internal class representing a single vertex/node inside a graph
     class Node
       def initialize(id:, data:)
         @data = data
@@ -9,6 +13,7 @@ module SimpleGraph
         @id = id
       end
 
+      # Adds a neighbor to the given node
       def add_neighbor(node)
         @neighbors << node
       end
@@ -18,7 +23,6 @@ module SimpleGraph
       attr_reader :id
     end
 
-    # Constructor
     def initialize
       # Our array of internal nodes
       @nodes = []
@@ -26,6 +30,11 @@ module SimpleGraph
       @nodes_by_id = {}
       # Tracks the highest used id for autoincrement
       @last_id = 0
+    end
+
+    # Remove all nodes from the graph
+    def clear
+      initialize
     end
 
     # Add a new node to the graph
@@ -58,10 +67,25 @@ module SimpleGraph
       @nodes_by_id.keys.to_a
     end
 
+    # Returns a hash of nodes in the graph mapped to node_id => node_data pairs
+    def nodes
+      @nodes.map { |node| { node.id => node.data } }
+    end
+
     # Method to connect 2 nodes
     def connect_nodes(first, second)
       @nodes_by_id[first].add_neighbor(@nodes_by_id[second])
       @nodes_by_id[second].add_neighbor(@nodes_by_id[first])
+    end
+
+    # Checks whether the graph contains a node with the given ID
+    def include?(node_id)
+      @nodes_by_id.key?(node_id)
+    end
+
+    # Check if two nodes are connected by an edge
+    def are_connected?(first, second)
+      @nodes_by_id[first].neighbors.include?(@nodes_by_id[second])
     end
 
     # Retrieve the current graph in the DOT format to be used with Graphviz
@@ -77,23 +101,46 @@ module SimpleGraph
       str << "}"
     end
 
-    def load_from_string(str)
-      lines = str.lines.map(&:chomp)
+    # Dumps the graph to a JSON string
+    def to_json
+      temp_hash = {
+        nodes: {},
+        edges: []
+      }
 
-      separator_position = lines.index("#")
-
-      nodes = lines[0..separator_position - 1]
-      edges = lines[separator_position + 1..-1].map(&:split)
-
-      nodes.each do |node|
-        add_node(id: node)
+      @nodes.each do |node|
+        temp_hash[:nodes][node.id] = node.data
       end
 
-      edges.each do |edge|
-        connect_nodes(edge.first, edge.last)
+      @nodes.each do |node|
+        node.neighbors.each do |neighbor|
+          temp_hash[:edges] << [node.id, neighbor.id]
+        end
       end
+
+      JSON.dump(temp_hash)
     end
 
+    # Loads the graph from a JSON string
+    # Returns the number of Nodes imported
+    def load_from_json(str)
+      temp_hash = JSON.parse(str)
+      nodes = temp_hash["nodes"]
+      edges = temp_hash["edges"]
+
+      nodes.each do |node_id, data|
+        add_node(id: node_id, data: data)
+      end
+
+      edges.each do |node_pair|
+        # Ignore duplicate edges for now
+        connect_nodes(node_pair.first, node_pair.last) unless are_connected?(node_pair.first, node_pair.last)
+      end
+
+      nodes.length
+    end
+
+    # Returns all the paths between two nodes as found by breadth-first-search
     def find_paths(source_id, terminal_id)
       found_paths = []
 
@@ -121,11 +168,12 @@ module SimpleGraph
         end
       end
 
-      found_paths.map { |found_path| found_path.map(&:id) }
+      found_paths.map { |found_path| found_path.map { |item| { item.id => item.data } } }
     end
 
     private
 
+    # Helper method to autoincrement generated node IDs
     def next_id
       @last_id += 1 while @nodes_by_id.keys.include?(@last_id + 1)
       @last_id += 1
