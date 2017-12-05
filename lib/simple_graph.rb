@@ -94,7 +94,7 @@ module SimpleGraph
 
       @nodes.each do |node|
         node.neighbors.each do |neighbor|
-          str << "    \"#{node.data[:name]}\" -- \"#{neighbor.data[:name]}\";\n"
+          str << "    \"#{node.id}\" -- \"#{neighbor.id}\";\n"
         end
       end
 
