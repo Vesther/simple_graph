@@ -1,5 +1,5 @@
 require "simple_graph/version"
-require "JSON"
+require "json"
 
 # Top level namespace for classes provided by this gem
 module SimpleGraph
